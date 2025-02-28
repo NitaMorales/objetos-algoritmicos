@@ -73,8 +73,8 @@
     
     <!-- Button Container BELOW Canvas -->
     <div class="button-container">
-        <button id="download-button" class="action-button">aprópiate de tu objeto</button>
-        <button id="reset-button" class="action-button">reiniciar</button>
+        <button id="download-button" class="action-button">aprópiate</button>
+        <button id="reset-button" class="action-button">reinicia</button>
     </div>
     
     <!-- Explanatory Text -->
@@ -96,7 +96,20 @@
         }
 
         document.getElementById("download-button").addEventListener("click", function() {
-            saveCanvas('objeto_algoritmico', 'png');
+            let img = canvas.toDataURL("image/png");
+            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                // For iOS: Open the image in a new tab so the user can manually save it to Photos
+                let newTab = window.open();
+                newTab.document.write('<img src="' + img + '" style="width:100%">');
+            } else {
+                // For Desktop: Trigger a download
+                let link = document.createElement("a");
+                link.href = img;
+                link.download = "objeto_algoritmico.png";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         });
 
         document.getElementById("reset-button").addEventListener("click", function() {
