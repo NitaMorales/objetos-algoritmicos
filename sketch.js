@@ -1,22 +1,31 @@
 let branches = [];
 const branchLength = 100; // Fixed length of each branch
+let canvas; // Store canvas reference
 
 function setup() {
-  let container = document.getElementById("canvas-container"); 
-  let canvas = createCanvas(800, 600);
-  canvas.parent(container); // Explicitly attach canvas to the container
+  let container = document.getElementById("canvas-container");
+  canvas = createCanvas(min(800, windowWidth), windowHeight * 0.9); // Responsive height
+  canvas.parent(container);
   
-  branches.push(new Branch(width / 2, height / 2, random(TWO_PI), 0)); // Start at center
+  // Initialize the first branch only after the canvas is created
+  branches.push(new Branch(width / 2, height / 2, random(TWO_PI), 0));
 }
 
 function draw() {
   background(255);
-  for (let branch of branches) {
-    branch.show();
+  
+  // Ensure branches array is not empty before drawing
+  if (branches.length > 0) {
+    for (let branch of branches) {
+      branch.show();
+    }
   }
 }
 
 function mousePressed() {
+  // Ensure branches is initialized before accessing it
+  if (branches.length === 0) return;
+
   let lastBranch = branches[branches.length - 1];
   let newBranch = lastBranch.bifurcate();
   
@@ -29,6 +38,11 @@ function isInsideCanvas(x, y) {
   return x >= 20 && x <= width - 20 && y >= 20 && y <= height - 20;
 }
 
+function windowResized() {
+  resizeCanvas(min(800, windowWidth), windowHeight * 0.9);
+}
+
+// Branch class remains the same
 class Branch {
   constructor(x, y, angle, depth = 0) {
     this.x = x;
