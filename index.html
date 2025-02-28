@@ -89,14 +89,14 @@
     <script>
         function setup() {
             let container = document.getElementById("canvas-container");
-            let canvasWidth = min(800, windowWidth * 0.9);
+            let canvasWidth = min(800, windowWidth * 0.5);
             let canvasHeight = (canvasWidth * 3) / 4; // Maintain 4:3 aspect ratio
             let canvas = createCanvas(canvasWidth, canvasHeight);
             canvas.parent(container);
         }
 
         function windowResized() {
-            let canvasWidth = min(800, windowWidth * 0.9);
+            let canvasWidth = min(800, windowWidth * 0.5);
             let canvasHeight = (canvasWidth * 3) / 4;
             resizeCanvas(canvasWidth, canvasHeight);
         }
