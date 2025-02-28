@@ -54,7 +54,7 @@ class Branch {
       if (isInsideCanvas(testX, testY)) {
         return new Branch(this.newX, this.newY, newAngle, this.depth + 1);
       }
-      
+
       attempts++;
     } while (attempts < 10); // Stop trying after 10 failed attempts
 
