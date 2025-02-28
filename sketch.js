@@ -9,6 +9,9 @@ function setup() {
   
   // Initialize the first branch only after the canvas is created
   branches.push(new Branch(width / 2, height / 2, random(TWO_PI), 0));
+  disableDoubleTapZoom();
+
+
 }
 
 function draw() {
@@ -78,3 +81,17 @@ class Branch {
     return null; // If no valid position is found, return null to avoid crashing
   }
 }
+
+
+function disableDoubleTapZoom() {
+  let lastTouchEnd = 0;
+
+  document.addEventListener("touchend", (event) => {
+    let now = new Date().getTime();
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault();
+    }
+    lastTouchEnd = now;
+  }, { passive: false });
+}
+
