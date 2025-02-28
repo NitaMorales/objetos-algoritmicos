@@ -4,6 +4,7 @@ const branchLength = 100; // Longitud fija de la línea
 function setup() {
   createCanvas(800, 600); // Fixed canvas size
   branches.push(new Branch(width / 2, height / 2, random(TWO_PI), 0)); // Comienza en el centro
+  createDownloadButton(); // Add download button
 }
 
 function draw() {
@@ -23,6 +24,16 @@ function mousePressed() {
 
 function isInsideCanvas(x, y) {
   return x >= 20 && x <= width - 20 && y >= 20 && y <= height - 20;
+}
+
+function createDownloadButton() {
+  let button = createButton('aprópiate de tu objeto');
+  button.position(10, 10);
+  button.mousePressed(downloadCanvas);
+}
+
+function downloadCanvas() {
+  saveCanvas('objeto_algoritmico', 'png');
 }
 
 class Branch {
