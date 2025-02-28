@@ -42,13 +42,20 @@ class Branch {
   }
 
   bifurcate() {
-    let newAngle;
-    do {
-      newAngle = this.angle + random([-HALF_PI, -QUARTER_PI, QUARTER_PI, HALF_PI]);
-      let testX = this.newX + cos(newAngle) * branchLength;
-      let testY = this.newY + sin(newAngle) * branchLength;
-      if (isInsideCanvas(testX, testY)) break;
-    } while (true);
-    return new Branch(this.newX, this.newY, newAngle, this.depth + 1);
-  }
+  let newAngle, testX, testY;
+  let attempts = 0; // Limit retry attempts
+  
+  do {
+    newAngle = this.angle + random([-HALF_PI, -QUARTER_PI, QUARTER_PI, HALF_PI]);
+    testX = this.newX + cos(newAngle) * branchLength;
+    testY = this.newY + sin(newAngle) * branchLength;
+    
+    if (isInsideCanvas(testX, testY)) {
+      return new Branch(this.newX, this.newY, newAngle, this.depth + 1);
+    }
+
+    attempts++;
+  } while (attempts < 10); // Stop after 10 attempts to prevent infinite loops
+
+  return null; // If no valid position is found, return null
 }
