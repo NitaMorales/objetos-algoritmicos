@@ -66,15 +66,14 @@
 <body>
     <h1>DERIVAS GENERATIVAS</h1>
     <h2>objeto algorítmico #1</h2>
-    <p>instrucciones: click click click o tap tap tap</p>
     
     <!-- Canvas Container -->
     <div id="canvas-container"></div>
     
     <!-- Button Container BELOW Canvas -->
     <div class="button-container">
-        <button id="download-button" class="action-button">aprópiate</button>
-        <button id="reset-button" class="action-button">reinicia</button>
+        <button id="download-button" class="action-button">aprópiate de tu objeto</button>
+        <button id="reset-button" class="action-button">reiniciar</button>
     </div>
     
     <!-- Explanatory Text -->
@@ -91,18 +90,20 @@
     <script>
         function setup() {
             let container = document.getElementById("canvas-container");
-            let canvas = createCanvas(800, 600);
+            let canvas = createCanvas(min(800, windowWidth * 0.9), min(600, windowHeight * 0.6));
             canvas.parent(container);
+        }
+
+        function windowResized() {
+            resizeCanvas(min(800, windowWidth * 0.9), min(600, windowHeight * 0.6));
         }
 
         document.getElementById("download-button").addEventListener("click", function() {
             let img = canvas.toDataURL("image/png");
             if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                // For iOS: Open the image in a new tab so the user can manually save it to Photos
                 let newTab = window.open();
                 newTab.document.write('<img src="' + img + '" style="width:100%">');
             } else {
-                // For Desktop: Trigger a download
                 let link = document.createElement("a");
                 link.href = img;
                 link.download = "objeto_algoritmico.png";
@@ -118,4 +119,5 @@
     </script>
 </body>
 </html>
+
 
