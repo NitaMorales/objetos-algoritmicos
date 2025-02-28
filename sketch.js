@@ -10,7 +10,7 @@ function setup() {
 }
 
 function draw() {
-  background(240);
+  background(255);
   for (let branch of branches) {
     branch.show();
   }
