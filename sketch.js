@@ -1,10 +1,12 @@
 let branches = [];
-const branchLength = 100; // Longitud fija de la línea
+const branchLength = 100; // Fixed length of each branch
 
 function setup() {
-  createCanvas(800, 600); // Fixed canvas size
-  branches.push(new Branch(width / 2, height / 2, random(TWO_PI), 0)); // Comienza en el centro
-  createDownloadButton(); // Add download button
+  let container = document.getElementById("canvas-container"); 
+  let canvas = createCanvas(800, 600);
+  canvas.parent(container); // Explicitly attach canvas to the container
+  
+  branches.push(new Branch(width / 2, height / 2, random(TWO_PI), 0)); // Start at center
 }
 
 function draw() {
@@ -17,23 +19,14 @@ function draw() {
 function mousePressed() {
   let lastBranch = branches[branches.length - 1];
   let newBranch = lastBranch.bifurcate();
-  if (newBranch !== null) {
+  
+  if (newBranch !== null && isInsideCanvas(newBranch.newX, newBranch.newY)) {
     branches.push(newBranch);
   }
 }
 
 function isInsideCanvas(x, y) {
   return x >= 20 && x <= width - 20 && y >= 20 && y <= height - 20;
-}
-
-function createDownloadButton() {
-  let button = createButton('aprópiate de tu objeto');
-  button.position(10, 10);
-  button.mousePressed(downloadCanvas);
-}
-
-function downloadCanvas() {
-  saveCanvas('objeto_algoritmico', 'png');
 }
 
 class Branch {
@@ -47,7 +40,7 @@ class Branch {
   }
 
   show() {
-    stroke(this.depth % 2 === 0 ? 0 : color(139, 0, 0)); // Alterna entre negro y rojo oscuro
+    stroke(this.depth % 2 === 0 ? 0 : color(139, 0, 0)); // Alternates between black and dark red
     strokeWeight(2);
     line(this.x, this.y, this.newX, this.newY);
   }
@@ -64,7 +57,7 @@ class Branch {
       if (isInsideCanvas(testX, testY)) {
         return new Branch(this.newX, this.newY, newAngle, this.depth + 1);
       }
-      
+
       attempts++;
     } while (attempts < 10); // Stop trying after 10 failed attempts
 

@@ -3,39 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>objeto poetico-algorítmico #1</title>
+    <title>DERIVAS GENERATIVAS</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script defer src="sketch.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            justify-content: flex-start;
+            height: auto;
             margin: 0;
             background-color: #f0f0f0;
             text-align: center;
             padding: 20px;
         }
         h1 {
+            font-family: 'Roboto Mono', monospace;
+            margin-bottom: 10px;
+        }
+        h2 {
             font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 20px;
+        }
+        #canvas-container {
+            width: 800px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            margin-bottom: 20px;
         }
         p {
             max-width: 600px;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 10px;
             line-height: 1.5;
+            margin-top: 20px;
         }
-        canvas {
-            display: block;
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .action-button {
+            padding: 5px 10px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            border: 1px solid black;
+            background-color: white;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>objeto poetico-algorítmico #1</h1>
+    <h1>DERIVAS GENERATIVAS</h1>
+    <h2>objeto algorítmico #1</h2>
+    
+    <!-- Canvas Container -->
+    <div id="canvas-container"></div>
+    
+    <!-- Button Container BELOW Canvas -->
+    <div class="button-container">
+        <button id="download-button" class="action-button">aprópiate de tu objeto</button>
+        <button id="reset-button" class="action-button">reiniciar</button>
+    </div>
+    
+    <!-- Explanatory Text -->
     <p>
-        objeto poetico-algorítmico #1 es una exploración sobre la acumulación de decisiones y su trazo en el tiempo. cada bifurcación es un eco de una posibilidad, una apertura que se despliega en el espacio. 
+        objeto algorítmico #1 es una exploración sobre la acumulación de decisiones y como se trazan en el tiempo. cada nueva línea es el eco de una posibilidad, una apertura que se despliega (literalmente) en el espacio. 
         <br><br>
         la estructura crece con cada interacción, expandiéndose en un territorio de líneas que insinúan futuros sin fijarlos. eventualmente, las líneas alcanzan un límite, el sistema se agota y el ejercicio termina. 
         <br><br>
@@ -43,5 +81,23 @@
         <br><br>
         el objeto puede descargarse en cualquier momento, como huella de un proceso irrepetible. 
     </p>
+
+    <script>
+        function setup() {
+            let container = document.getElementById("canvas-container");
+            let canvas = createCanvas(800, 600);
+            canvas.parent(container);
+        }
+
+        document.getElementById("download-button").addEventListener("click", function() {
+            saveCanvas('objeto_algoritmico', 'png');
+        });
+
+        document.getElementById("reset-button").addEventListener("click", function() {
+            location.reload(); // Reloads the page to reset the canvas
+        });
+    </script>
 </body>
 </html>
+
+
