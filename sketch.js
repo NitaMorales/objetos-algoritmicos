@@ -16,7 +16,7 @@ function draw() {
 function mousePressed() {
   let lastBranch = branches[branches.length - 1];
   let newBranch = lastBranch.bifurcate();
-  if (isInsideCanvas(newBranch.newX, newBranch.newY)) {
+  if (newBranch !== null) {
     branches.push(newBranch);
   }
 }
@@ -42,13 +42,21 @@ class Branch {
   }
 
   bifurcate() {
-    let newAngle;
+    let newAngle, testX, testY;
+    let attempts = 0; // Limit retry attempts to prevent infinite loops
+
     do {
       newAngle = this.angle + random([-HALF_PI, -QUARTER_PI, QUARTER_PI, HALF_PI]);
-      let testX = this.newX + cos(newAngle) * branchLength;
-      let testY = this.newY + sin(newAngle) * branchLength;
-      if (isInsideCanvas(testX, testY)) break;
-    } while (true);
-    return new Branch(this.newX, this.newY, newAngle, this.depth + 1);
+      testX = this.newX + cos(newAngle) * branchLength;
+      testY = this.newY + sin(newAngle) * branchLength;
+
+      if (isInsideCanvas(testX, testY)) {
+        return new Branch(this.newX, this.newY, newAngle, this.depth + 1);
+      }
+      
+      attempts++;
+    } while (attempts < 10); // Stop trying after 10 failed attempts
+
+    return null; // If no valid position is found, return null to avoid crashing
   }
 }
