@@ -33,9 +33,6 @@
             align-items: center;
             background-color: white;
             margin-bottom: 20px;
-            width: 100%;
-            max-width: 800px;
-            height: auto;
         }
         canvas {
             max-width: 100%;
@@ -90,12 +87,8 @@
     <script>
         function setup() {
             let container = document.getElementById("canvas-container");
-            let canvas = createCanvas(min(800, windowWidth * 0.9), min(600, windowHeight * 0.6));
+            let canvas = createCanvas(800, 600);
             canvas.parent(container);
-        }
-
-        function windowResized() {
-            resizeCanvas(min(800, windowWidth * 0.9), min(600, windowHeight * 0.6));
         }
 
         document.getElementById("download-button").addEventListener("click", function() {
@@ -119,5 +112,6 @@
     </script>
 </body>
 </html>
+
 
 
