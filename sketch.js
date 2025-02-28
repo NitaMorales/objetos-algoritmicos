@@ -1,9 +1,9 @@
 let branches = [];
-const branchLength = 100; // Fixed length of each branch
+const branchLength = 100; // Longitud fija de la línea
 
 function setup() {
-  createCanvas(800, 600);
-  branches.push(new Branch(width / 2, height / 2, random(TWO_PI), 0)); // Start at center
+  createCanvas(1920, 1080);
+  branches.push(new Branch(width / 2, height / 2, random(TWO_PI), 0)); // Comienza en el centro
 }
 
 function draw() {
@@ -16,8 +16,7 @@ function draw() {
 function mousePressed() {
   let lastBranch = branches[branches.length - 1];
   let newBranch = lastBranch.bifurcate();
-  
-  if (newBranch !== null && isInsideCanvas(newBranch.newX, newBranch.newY)) {
+  if (isInsideCanvas(newBranch.newX, newBranch.newY)) {
     branches.push(newBranch);
   }
 }
@@ -37,27 +36,19 @@ class Branch {
   }
 
   show() {
-    stroke(this.depth % 2 === 0 ? 0 : color(139, 0, 0)); // Alternates between black and dark red
+    stroke(this.depth % 2 === 0 ? 0 : color(139, 0, 0)); // Alterna entre negro y rojo oscuro
     strokeWeight(2);
     line(this.x, this.y, this.newX, this.newY);
   }
 
   bifurcate() {
-    let newAngle, testX, testY;
-    let attempts = 0; // Limit retry attempts to prevent infinite loops
-
+    let newAngle;
     do {
       newAngle = this.angle + random([-HALF_PI, -QUARTER_PI, QUARTER_PI, HALF_PI]);
-      testX = this.newX + cos(newAngle) * branchLength;
-      testY = this.newY + sin(newAngle) * branchLength;
-
-      if (isInsideCanvas(testX, testY)) {
-        return new Branch(this.newX, this.newY, newAngle, this.depth + 1);
-      }
-
-      attempts++;
-    } while (attempts < 10); // Stop trying after 10 failed attempts
-
-    return null; // If no valid position is found, return null to avoid crashing
+      let testX = this.newX + cos(newAngle) * branchLength;
+      let testY = this.newY + sin(newAngle) * branchLength;
+      if (isInsideCanvas(testX, testY)) break;
+    } while (true);
+    return new Branch(this.newX, this.newY, newAngle, this.depth + 1);
   }
 }
