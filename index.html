@@ -28,13 +28,18 @@
             margin-bottom: 20px;
         }
         #canvas-container {
-            width: 800px;
-            height: 600px;
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: white;
             margin-bottom: 20px;
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
         }
         p {
             max-width: 600px;
@@ -61,14 +66,13 @@
 <body>
     <h1>DERIVAS GENERATIVAS</h1>
     <h2>objeto algorítmico #1</h2>
-    <p>instrucciones: click click click</p>
-    
+    <p> instrucciones: click click click o tap tap tap </p> 
     <!-- Canvas Container -->
     <div id="canvas-container"></div>
     
     <!-- Button Container BELOW Canvas -->
     <div class="button-container">
-        <button id="download-button" class="action-button">aprópiate del objeto</button>
+        <button id="download-button" class="action-button">aprópiate de tu objeto</button>
         <button id="reset-button" class="action-button">reiniciar</button>
     </div>
     
@@ -86,8 +90,12 @@
     <script>
         function setup() {
             let container = document.getElementById("canvas-container");
-            let canvas = createCanvas(800, 600);
+            let canvas = createCanvas(min(800, windowWidth * 0.9), min(600, windowHeight * 0.6));
             canvas.parent(container);
+        }
+
+        function windowResized() {
+            resizeCanvas(min(800, windowWidth * 0.9), min(600, windowHeight * 0.6));
         }
 
         document.getElementById("download-button").addEventListener("click", function() {
