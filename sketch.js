@@ -2,7 +2,7 @@ let branches = [];
 const branchLength = 100; // Longitud fija de la línea
 
 function setup() {
-  createCanvas(1920, 1080);
+  createCanvas(windowWidth, windowHeight); // Adaptable canvas size
   branches.push(new Branch(width / 2, height / 2, random(TWO_PI), 0)); // Comienza en el centro
 }
 
@@ -11,6 +11,10 @@ function draw() {
   for (let branch of branches) {
     branch.show();
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight); // Resize canvas when window size changes
 }
 
 function mousePressed() {
