@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch Animation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script defer src="sketch.js"></script>
+</head>
+<body>
+</body>
+</html>
+
+  bifurcate() {
+    let newAngle;
+    do {
+      newAngle = this.angle + random([-HALF_PI, -QUARTER_PI, QUARTER_PI, HALF_PI]);
+      let testX = this.newX + cos(newAngle) * branchLength;
+      let testY = this.newY + sin(newAngle) * branchLength;
+      if (isInsideCanvas(testX, testY)) break;
+    } while (true);
+    return new Branch(this.newX, this.newY, newAngle, this.depth + 1);
+  }
+}
