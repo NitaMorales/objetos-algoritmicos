@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DERIVAS GENERATIVAS</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script defer src="sketch.js"></script>
@@ -61,15 +61,18 @@
             background-color: white;
             cursor: pointer;
         }
+        #open-in-browser-message {
+            font-size: 12px;
+            font-family: 'Roboto Mono', monospace;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <h1>DERIVAS GENERATIVAS</h1>
     <h2>objeto algorítmico 1.∞</h2>
+    <p id="open-in-browser-message">Si tienes problemas interactuando, <a href="#" onclick="openInBrowser()">haz clic aquí para abrir en tu navegador.</a></p>
     <p>instrucciones: click click click o tap tap tap</p>
-    <p id="open-in-browser-message" style="font-size: 12px; font-family: 'Roboto Mono', monospace; display: none;">
-    Si tienes problemas interactuando, <a href="#" onclick="openInBrowser()">haz clic aquí para abrir en tu navegador.</a>
-</p>
     
     <!-- Canvas Container -->
     <div id="canvas-container"></div>
@@ -97,49 +100,37 @@
         }
 
         document.getElementById("download-button").addEventListener("click", function() {
-            saveCanvas('objeto_algoritmico', 'png');
+            let img = canvas.toDataURL("image/png");
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                let newTab = window.open();
+                newTab.document.write('<img src="' + img + '" style="width:100%">');
+            } else {
+                let link = document.createElement("a");
+                link.href = img;
+                link.download = "objeto_algoritmico.png";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         });
 
         document.getElementById("reset-button").addEventListener("click", function() {
             location.reload(); // Reloads the page to reset the canvas
         });
-        document.getElementById("download-button").addEventListener("click", function() {
-    let img = canvas.toDataURL("image/png"); // Convert canvas to an image
 
-    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Create a temporary link and open in a new tab
-        let link = document.createElement("a");
-        link.href = img;
-        link.target = "_blank"; // Open in new tab
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    } else {
-        // For Desktop: Directly download the image
-        let link = document.createElement("a");
-        link.href = img;
-        link.download = "objeto_algoritmico.png";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-    function openInBrowser() {
-    let url = window.location.href;
-    window.open(url, "_blank");
-}
+        function openInBrowser() {
+            let url = window.location.href;
+            window.open(url, "_blank");
+        }
 
-function isInstagramBrowser() {
-    return navigator.userAgent.includes("Instagram");
-}
+        function isInstagramBrowser() {
+            return navigator.userAgent.includes("Instagram");
+        }
 
-if (isInstagramBrowser()) {
-    // Show the message to open in a real browser
-    document.getElementById("open-in-browser-message").style.display = "block";
-
-    // Alert users about Instagram's limitations
-    alert("Para interactuar correctamente, abre esta página en tu navegador.");
-}
-});
+        if (isInstagramBrowser()) {
+            document.getElementById("open-in-browser-message").style.display = "block";
+            alert("Para interactuar correctamente, abre esta página en tu navegador (Safari o Chrome).");
+        }
     </script>
 </body>
 </html>
