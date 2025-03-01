@@ -65,13 +65,21 @@
             font-size: 12px;
             font-family: 'Roboto Mono', monospace;
             display: none;
+            background-color: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ffeeba;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
     <h1>DERIVAS GENERATIVAS</h1>
     <h2>objeto algorítmico 1.∞</h2>
-    <p id="open-in-browser-message">Si tienes problemas interactuando, <a href="#" onclick="openInBrowser()">haz clic aquí para abrir en tu navegador.</a></p>
+    <p id="open-in-browser-message">📢 hola, estás en el navegador de instagram - para interactuar correctamente, abre esta página en tu navegador:<br>
+        <b>1. toca los tres puntos (⋮ o ⠇) en la esquina superior derecha.</b><br>
+        <b>2. selecciona "abrir en el navegador".</b>
+    </p>
     <p>instrucciones: click click click o tap tap tap</p>
     
     <!-- Canvas Container -->
@@ -118,21 +126,12 @@
             location.reload(); // Reloads the page to reset the canvas
         });
 
-        function openInBrowser() {
-    let url = window.location.href;
-
-    // Force Instagram to open in an external browser
-    setTimeout(function () {
-        window.location.replace(url);
-    }, 100);
-}
         function isInstagramBrowser() {
             return navigator.userAgent.includes("Instagram");
         }
 
         if (isInstagramBrowser()) {
             document.getElementById("open-in-browser-message").style.display = "block";
-            alert("Para interactuar correctamente, abre esta página en tu navegador (Safari o Chrome).");
         }
     </script>
 </body>
