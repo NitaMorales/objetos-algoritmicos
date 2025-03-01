@@ -76,9 +76,9 @@
 <body>
     <h1>DERIVAS GENERATIVAS</h1>
     <h2>objeto algorítmico 1.∞</h2>
-    <p id="open-in-browser-message">📢 hola, estás en el navegador de instagram - para interactuar correctamente, abre esta página en tu navegador:<br>
-        <b>1. toca los tres puntos (⋮ o ⠇) en la esquina superior derecha.</b><br>
-        <b>2. selecciona "abrir en el navegador".</b>
+    <p id="open-in-browser-message">📢 Para interactuar correctamente, abre esta página en tu navegador:<br>
+        <b>1. Toca los tres puntos (⋮ o ⠇) en la esquina superior derecha.</b><br>
+        <b>2. Selecciona "Abrir en el navegador".</b>
     </p>
     <p>instrucciones: click click click o tap tap tap</p>
     
@@ -107,19 +107,12 @@
             canvas.parent(container);
         }
 
+        function windowResized() {
+            resizeCanvas(800, 600);
+        }
+
         document.getElementById("download-button").addEventListener("click", function() {
-            let img = canvas.toDataURL("image/png");
-            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                let newTab = window.open();
-                newTab.document.write('<img src="' + img + '" style="width:100%">');
-            } else {
-                let link = document.createElement("a");
-                link.href = img;
-                link.download = "objeto_algoritmico.png";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
+            saveCanvas('objeto_algoritmico', 'png');
         });
 
         document.getElementById("reset-button").addEventListener("click", function() {
