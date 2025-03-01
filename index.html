@@ -67,6 +67,9 @@
     <h1>DERIVAS GENERATIVAS</h1>
     <h2>objeto algorítmico 1.∞</h2>
     <p>instrucciones: click click click o tap tap tap</p>
+    <p id="open-in-browser-message" style="font-size: 12px; font-family: 'Roboto Mono', monospace; display: none;">
+    Si tienes problemas interactuando, <a href="#" onclick="openInBrowser()">haz clic aquí para abrir en tu navegador.</a>
+</p>
     
     <!-- Canvas Container -->
     <div id="canvas-container"></div>
@@ -120,6 +123,22 @@
         link.click();
         document.body.removeChild(link);
     }
+    function openInBrowser() {
+    let url = window.location.href;
+    window.open(url, "_blank");
+}
+
+function isInstagramBrowser() {
+    return navigator.userAgent.includes("Instagram");
+}
+
+if (isInstagramBrowser()) {
+    // Show the message to open in a real browser
+    document.getElementById("open-in-browser-message").style.display = "block";
+
+    // Alert users about Instagram's limitations
+    alert("Para interactuar correctamente, abre esta página en tu navegador.");
+}
 });
     </script>
 </body>
