@@ -121,16 +121,11 @@
         function openInBrowser() {
     let url = window.location.href;
 
-    // Open in a new window (attempt to break out of Instagram's in-app browser)
-    let newWindow = window.open(url, "_blank");
-
-    // If the browser blocks the new tab, redirect manually
-    if (!newWindow || newWindow.closed || typeof newWindow.closed === "undefined") {
-        window.location.href = url;
-    }
-}, 500);
+    // Force Instagram to open in an external browser
+    setTimeout(function () {
+        window.location.replace(url);
+    }, 100);
 }
-
         function isInstagramBrowser() {
             return navigator.userAgent.includes("Instagram");
         }
