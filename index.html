@@ -119,9 +119,14 @@
         });
 
         function openInBrowser() {
-            let url = window.location.href;
-            window.open(url, "_blank");
-        }
+    let url = window.location.href;
+    
+    // Try opening in Safari (iOS) or default browser (Android)
+    window.location.href = "googlechrome://" + url.replace(/^https?:\/\//, ""); // Chrome on iOS
+    setTimeout(function () {
+        window.location.href = url; // If Chrome fails, fallback to normal URL
+    }, 500);
+}
 
         function isInstagramBrowser() {
             return navigator.userAgent.includes("Instagram");
@@ -134,6 +139,7 @@
     </script>
 </body>
 </html>
+
 
 
 
