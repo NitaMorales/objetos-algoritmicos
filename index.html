@@ -83,9 +83,7 @@
         <br><br>
         la estructura crece con cada interacción, expandiéndose en un territorio de líneas que insinúan futuros sin fijarlos. eventualmente, las líneas alcanzan un límite, el sistema se agota y el ejercicio termina. 
         <br><br>
-        el cuadro final es una pausa en el flujo, un registro efímero de un sistema en constante devenir. 
-        <br><br>
-        el objeto puede descargarse en cualquier momento, como huella de un proceso irrepetible. 
+        el cuadro final es una pausa en el flujo, un registro efímero de un sistema en constante transformación. 
     </p>
 
     <script>
@@ -102,23 +100,27 @@
         document.getElementById("reset-button").addEventListener("click", function() {
             location.reload(); // Reloads the page to reset the canvas
         });
-            document.getElementById("download-button").addEventListener("click", function() {
-        let img = canvas.toDataURL("image/png"); // Convert canvas to PNG format
+        document.getElementById("download-button").addEventListener("click", function() {
+    let img = canvas.toDataURL("image/png"); // Convert canvas to an image
 
-        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            // Open the image in a new tab on iOS and Android for manual saving
-            let newTab = window.open();
-            newTab.document.write('<img src="' + img + '" style="width:100%;">');
-        } else {
-            // For Desktop: Trigger a direct download
-            let link = document.createElement("a");
-            link.href = img;
-            link.download = "objeto_algoritmico.png";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    });
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Create a temporary link and open in a new tab
+        let link = document.createElement("a");
+        link.href = img;
+        link.target = "_blank"; // Open in new tab
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } else {
+        // For Desktop: Directly download the image
+        let link = document.createElement("a");
+        link.href = img;
+        link.download = "objeto_algoritmico.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+});
     </script>
 </body>
 </html>
